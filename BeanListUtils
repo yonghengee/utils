@@ -1,0 +1,35 @@
+import com.tx.txcall.modules.dict.api.entity.CommonDict;
+import org.springframework.beans.BeanUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @program:
+ * @description: BeanList 2 BeanList copyProperties
+ * @author: forever-wang
+ * @create: 2019-08-12 15:45
+ **/
+public class BeanListUtils<E> {
+
+
+    public  List<E> beanListCopy(List<?> sources,Class<? extends E> targetClass){
+        ArrayList<E> targets = new ArrayList<>();
+        sources.forEach(source->{
+            E target = null;
+            try {
+                target = targetClass.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            BeanUtils.copyProperties(source, target);
+            targets.add(target);
+        });
+        return targets;
+    }
+
+
+   
+}
